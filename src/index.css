@@ -1,38 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 255 255 255;
+    --foreground: 17 24 39;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 255 255 255;
+    --card-foreground: 17 24 39;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 255 255 255;
+    --popover-foreground: 17 24 39;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 139 92 246;
+    --primary-foreground: 255 255 255;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217 70 239;
+    --secondary-foreground: 255 255 255;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 243 244 246;
+    --muted-foreground: 107 114 128;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 249 115 22;
+    --accent-foreground: 255 255 255;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --success: 16 185 129;
+    --success-foreground: 255 255 255;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
 
-    --radius: 0.5rem;
+    --border: 229 231 235;
+    --input: 229 231 235;
+    --ring: 139 92 246;
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -96,6 +101,27 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 text-foreground;
+    font-family: "Rubik", sans-serif;
+  }
+}
+
+@layer utilities {
+  .animate-pulse-success {
+    animation: pulse-success 0.5s ease-in-out;
+  }
+
+  @keyframes pulse-success {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  .touch-manipulation {
+    touch-action: manipulation;
   }
 }
