@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import RussiaMap from '@/components/RussiaMap';
 
 interface Region {
   code: string;
@@ -261,71 +262,58 @@ export default function Index() {
           </div>
         ) : (
           <div className="animate-slide-left">
-            <h2 className="text-xl font-bold mb-4">🏆 Топ-5 регионов</h2>
-            {topRegions.length > 0 ? (
-              <div className="space-y-3 mb-6">
-                {topRegions.map((region, index) => (
-                  <Card
-                    key={region.code}
-                    className={`p-4 bg-gradient-to-r ${
-                      index === 0
-                        ? 'from-yellow-400 to-yellow-500 text-yellow-900'
-                        : index === 1
-                        ? 'from-gray-300 to-gray-400 text-gray-900'
-                        : index === 2
-                        ? 'from-orange-400 to-orange-500 text-orange-900'
-                        : 'from-green-400 to-green-500 text-white'
-                    } border-0 shadow-md`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="text-3xl font-bold">
-                          {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`}
-                        </div>
-                        <div>
-                          <div className="font-bold text-lg">{region.code}</div>
-                          <div className="text-sm opacity-90">{region.name}</div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold">{region.clicks}</div>
-                        <div className="text-xs opacity-90">кликов</div>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <Card className="p-8 text-center text-muted-foreground">
-                <Icon name="Trophy" className="mx-auto mb-3 text-gray-400" size={48} />
-                <p className="text-lg">Начни кликать по регионам!</p>
-              </Card>
-            )}
+            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <Icon name="Map" size={28} className="text-purple-600" />
+              Интерактивная карта России
+            </h2>
+            
+            <RussiaMap regions={regions} onRegionClick={handleRegionClick} />
 
-            <Card className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
-              <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                <Icon name="Map" size={24} className="text-purple-600" />
-                Карта России
+            <div className="mt-6">
+              <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
+                <Icon name="Trophy" size={24} className="text-orange-500" />
+                🏆 Топ-5 регионов
               </h3>
-              <div className="grid grid-cols-2 gap-2 max-h-96 overflow-y-auto">
-                {regions
-                  .filter(r => r.clicks > 0)
-                  .map(region => (
-                    <Badge
+              {topRegions.length > 0 ? (
+                <div className="space-y-2">
+                  {topRegions.map((region, index) => (
+                    <Card
                       key={region.code}
-                      className="bg-gradient-to-r from-green-500 to-green-600 text-white text-sm py-2 px-3 justify-between"
+                      className={`p-3 bg-gradient-to-r ${
+                        index === 0
+                          ? 'from-yellow-400 to-yellow-500 text-yellow-900'
+                          : index === 1
+                          ? 'from-gray-300 to-gray-400 text-gray-900'
+                          : index === 2
+                          ? 'from-orange-400 to-orange-500 text-orange-900'
+                          : 'from-green-400 to-green-500 text-white'
+                      } border-0 shadow-md`}
                     >
-                      <span className="font-bold">{region.code}</span>
-                      <span className="text-xs opacity-90">{region.clicks}</span>
-                    </Badge>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="text-2xl font-bold">
+                            {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`}
+                          </div>
+                          <div>
+                            <div className="font-bold">{region.code}</div>
+                            <div className="text-xs opacity-90">{region.name}</div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-2xl font-bold">{region.clicks}</div>
+                          <div className="text-xs opacity-90">кликов</div>
+                        </div>
+                      </div>
+                    </Card>
                   ))}
-              </div>
-              {regions.filter(r => r.clicks > 0).length === 0 && (
-                <p className="text-center text-muted-foreground py-8">
-                  Отмеченные регионы появятся здесь
-                </p>
+                </div>
+              ) : (
+                <Card className="p-6 text-center text-muted-foreground">
+                  <Icon name="Trophy" className="mx-auto mb-2 text-gray-400" size={40} />
+                  <p className="text-sm">Начни кликать по регионам!</p>
+                </Card>
               )}
-            </Card>
+            </div>
           </div>
         )}
       </div>
